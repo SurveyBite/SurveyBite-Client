@@ -1,15 +1,14 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import { showSurvey } from '../../api/survey'
-import axios from 'axios'
-import apiUrl from '../../apiConfig'
+import { withRouter, Redirect } from 'react-router-dom'
+import { showSurvey, deleteSurvey } from '../../api/survey'
 
 class Survey extends Component {
   constructor (props) {
     super(props)
     console.log(props)
     this.state = {
-      survey: {}
+      survey: {},
+      deleted: false
     }
   }
 
@@ -25,25 +24,22 @@ class Survey extends Component {
 
   deleteClick = () => {
     const id = this.props.match.params.id
-
-    axios({
-      method: 'DELETE',
-      url: apiUrl + '/books/' + id
-    })
+    const { user } = this.props
+    deleteSurvey(user, id)
       .then(() => this.setState({ deleted: true }))
       .catch(console.error)
   }
 
   render () {
-    // if (this.state.deleted) {
-    //   return <Redirect to='/books' />
-    // }
+    if (this.state.deleted) {
+      return <Redirect to='/surveys' />
+    }
     return (
       <>
         <h4>Survey</h4>
         <h5>{this.state.survey.title}</h5>
         <p>Description: {this.state.survey.text}</p>
-        {/* <button onClick={this.deleteClick}>Delete Book</button> */}
+        <button onClick={this.deleteClick}>Delete Survey</button>
       </>
     )
   }

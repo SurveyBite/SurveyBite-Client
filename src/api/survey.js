@@ -36,3 +36,13 @@ export const showSurvey = (user, id) => {
     }
   })
 }
+
+export const deleteSurvey = (user, id) => {
+  return axios({
+    method: 'DELETE',
+    url: apiUrl + '/surveys/' + id,
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}

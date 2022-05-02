@@ -90,8 +90,9 @@ class App extends Component {
             )}
           />
           <AuthenticatedRoute
+            exact
             user={user}
-            path='/surveys/create'
+            path='/new-survey'
             render={() => (
               <CreateSurvey msgAlert={this.msgAlert} user={user} />
             )}
@@ -105,6 +106,7 @@ class App extends Component {
             )}
           />
           <AuthenticatedRoute
+            exact
             user={user}
             path='/surveys/:id'
             render={() => (
