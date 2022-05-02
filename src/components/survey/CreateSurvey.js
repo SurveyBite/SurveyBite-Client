@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { createSurvey } from '../../api/survey'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -10,7 +10,9 @@ class CreateSurvey extends Component {
 
     this.state = {
       title: '',
-      text: ''
+      text: '',
+      id: '',
+      created: false
     }
   }
 
@@ -25,8 +27,7 @@ class CreateSurvey extends Component {
     const { msgAlert, user } = this.props
 
     createSurvey(this.state, user)
-      // .then(() => signIn(this.state))
-      // .then((res) => setUser(res.data.user))
+      .then((res) => this.setState({ id: res.data.survey._id, created: true }))
       .then(() =>
         msgAlert({
           heading: 'Create Survey Success',
@@ -47,7 +48,9 @@ class CreateSurvey extends Component {
 
   render () {
     const { title, text } = this.state
-
+    if (this.state.created) {
+      return <Redirect to={'/surveys/' + this.state.id} />
+    }
     return (
       <div className='row'>
         <div className='col-sm-10 col-md-8 mx-auto mt-5'>
