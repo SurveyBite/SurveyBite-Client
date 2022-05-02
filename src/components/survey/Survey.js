@@ -8,7 +8,8 @@ class Survey extends Component {
     console.log(props)
     this.state = {
       survey: {},
-      deleted: false
+      deleted: false,
+      update: false
     }
   }
 
@@ -30,9 +31,16 @@ class Survey extends Component {
       .catch(console.error)
   }
 
+  updateClick = () => {
+    this.setState({ update: true })
+  }
+
   render () {
     if (this.state.deleted) {
       return <Redirect to='/surveys' />
+    }
+    if (this.state.update) {
+      return <Redirect to={'/surveys/' + this.props.match.params.id + '/update'} />
     }
     return (
       <>
@@ -40,6 +48,7 @@ class Survey extends Component {
         <h5>{this.state.survey.title}</h5>
         <p>Description: {this.state.survey.text}</p>
         <button onClick={this.deleteClick}>Delete Survey</button>
+        <button onClick={this.updateClick}>Update Survey</button>
       </>
     )
   }

@@ -46,3 +46,19 @@ export const deleteSurvey = (user, id) => {
     }
   })
 }
+
+export const updateSurvey = (survey, user, id) => {
+  return axios({
+    method: 'PATCH',
+    url: apiUrl + '/surveys/' + id,
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    },
+    data: {
+      survey: {
+        title: survey.title,
+        text: survey.text
+      }
+    }
+  })
+}

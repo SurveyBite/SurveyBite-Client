@@ -13,6 +13,7 @@ import ChangePassword from './components/auth/ChangePassword'
 import CreateSurvey from './components/survey/CreateSurvey'
 import IndexSurveys from './components/survey/IndexSurveys'
 import Survey from './components/survey/Survey'
+import UpdateSurvey from './components/survey/UpdateSurvey'
 
 class App extends Component {
   constructor (props) {
@@ -111,6 +112,14 @@ class App extends Component {
             path='/surveys/:id'
             render={() => (
               <Survey msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/surveys/:id/update'
+            render={() => (
+              <UpdateSurvey msgAlert={this.msgAlert} user={user} />
             )}
           />
         </main>
