@@ -5,7 +5,6 @@ import { showSurvey, deleteSurvey } from '../../api/survey'
 class Survey extends Component {
   constructor (props) {
     super(props)
-    console.log(props)
     this.state = {
       survey: {},
       deleted: false,
@@ -16,7 +15,6 @@ class Survey extends Component {
   componentDidMount () {
     const id = this.props.match.params.id
     const { user } = this.props
-    console.log(id)
     showSurvey(user, id)
 
       .then((response) => this.setState({ survey: response.data.survey }))

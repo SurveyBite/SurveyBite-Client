@@ -5,8 +5,6 @@ import { indexSurveys } from '../../api/survey'
 class IndexSurveys extends Component {
   constructor (props) {
     super(props)
-    // console.log(props)
-
     this.state = {
       surveys: []
     }
@@ -16,7 +14,8 @@ class IndexSurveys extends Component {
     const { msgAlert, user } = this.props
 
     indexSurveys(user)
-      .then((res) => this.setState({ surveys: res.data.surveys }))
+      .then((res) => res.data.surveys.filter((survey) => survey.owner === this.props.user._id))
+      .then((res) => this.setState({ surveys: res }))
       .then(() =>
         msgAlert({
           heading: 'Index Survey Success',

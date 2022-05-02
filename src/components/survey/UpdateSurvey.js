@@ -18,7 +18,6 @@ class UpdateSurvey extends Component {
   componentDidMount () {
     const id = this.props.match.params.id
     const { user } = this.props
-    console.log(id)
     showSurvey(user, id)
       .then((response) => this.setState({ title: response.data.survey.title, text: response.data.survey.text }))
       .catch(console.error)
