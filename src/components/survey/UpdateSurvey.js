@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Redirect, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { updateSurvey, showSurvey } from '../../api/survey'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -10,8 +10,7 @@ class UpdateSurvey extends Component {
 
     this.state = {
       title: '',
-      text: '',
-      updated: false
+      text: ''
     }
   }
 
@@ -31,15 +30,12 @@ class UpdateSurvey extends Component {
   onUpdateSurvey = (event) => {
     event.preventDefault()
     const id = this.props.match.params.id
-    const { user } = this.props
+    const { user, history } = this.props
     updateSurvey(this.state, user, id)
-      .then(() => this.setState({ updated: true }))
+      .then(() => history.push('/surveys/' + this.props.match.params.id))
   }
 
   render () {
-    if (this.state.updated) {
-      return <Redirect to={'/surveys/' + this.props.match.params.id} />
-    }
     return (
       <>
         <div className='row'>
@@ -60,7 +56,6 @@ class UpdateSurvey extends Component {
               <Form.Group controlId='text'>
                 <Form.Label>Text</Form.Label>
                 <Form.Control
-                  required
                   name='text'
                   value={this.state.text}
                   type='text'

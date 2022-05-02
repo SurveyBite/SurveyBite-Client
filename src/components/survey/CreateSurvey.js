@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { createSurvey } from '../../api/survey'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -11,8 +11,7 @@ class CreateSurvey extends Component {
     this.state = {
       title: '',
       text: '',
-      id: '',
-      created: false
+      id: ''
     }
   }
 
@@ -24,10 +23,10 @@ class CreateSurvey extends Component {
   onCreateSurvey = (event) => {
     event.preventDefault()
 
-    const { msgAlert, user } = this.props
+    const { msgAlert, user, history } = this.props
 
     createSurvey(this.state, user)
-      .then((res) => this.setState({ id: res.data.survey._id, created: true }))
+      .then((res) => this.setState({ id: res.data.survey._id }))
       .then(() =>
         msgAlert({
           heading: 'Create Survey Success',
@@ -35,7 +34,7 @@ class CreateSurvey extends Component {
           variant: 'success'
         })
       )
-      // .then(() => history.push('/'))
+      .then(() => history.push('/surveys/' + this.state.id))
       .catch((error) => {
         // this.setState({ email: '', password: '', passwordConfirmation: '' })
         msgAlert({
@@ -48,9 +47,7 @@ class CreateSurvey extends Component {
 
   render () {
     const { title, text } = this.state
-    if (this.state.created) {
-      return <Redirect to={'/surveys/' + this.state.id} />
-    }
+
     return (
       <div className='row'>
         <div className='col-sm-10 col-md-8 mx-auto mt-5'>
@@ -70,7 +67,6 @@ class CreateSurvey extends Component {
             <Form.Group controlId='text'>
               <Form.Label>Text</Form.Label>
               <Form.Control
-                required
                 name='text'
                 value={text}
                 type='text'

@@ -1,14 +1,12 @@
 import React, { Component } from 'react'
-import { withRouter, Redirect } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { showSurvey, deleteSurvey } from '../../api/survey'
 
 class Survey extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      survey: {},
-      deleted: false,
-      update: false
+      survey: {}
     }
   }
 
@@ -23,22 +21,27 @@ class Survey extends Component {
 
   deleteClick = () => {
     const id = this.props.match.params.id
-    const { user } = this.props
+    const { user, history } = this.props
     deleteSurvey(user, id)
-      .then(() => this.setState({ deleted: true }))
+      .then(() => history.push('/surveys'))
       .catch(console.error)
   }
 
   updateClick = () => {
-    this.setState({ update: true })
+    const { history } = this.props
+    history.push('/surveys/' + this.props.match.params.id + '/update')
   }
 
   render () {
-    if (this.state.deleted) {
-      return <Redirect to='/surveys' />
-    }
-    if (this.state.update) {
-      return <Redirect to={'/surveys/' + this.props.match.params.id + '/update'} />
+    if (this.state.survey.text === '') {
+      return (
+        <>
+          <h4>Survey</h4>
+          <h5>{this.state.survey.title}</h5>
+          <button onClick={this.deleteClick}>Delete Survey</button>
+          <button onClick={this.updateClick}>Update Survey</button>
+        </>
+      )
     }
     return (
       <>
