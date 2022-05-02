@@ -17,3 +17,22 @@ export const createSurvey = (survey, user) => {
   })
 }
 
+export const indexSurveys = (user) => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/surveys/',
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}
+
+export const showSurvey = (user, id) => {
+  return axios({
+    method: 'GET',
+    url: apiUrl + '/surveys/' + id,
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    }
+  })
+}

@@ -11,6 +11,8 @@ import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
 import CreateSurvey from './components/survey/CreateSurvey'
+import IndexSurveys from './components/survey/IndexSurveys'
+import Survey from './components/survey/Survey'
 
 class App extends Component {
   constructor (props) {
@@ -92,6 +94,21 @@ class App extends Component {
             path='/surveys/create'
             render={() => (
               <CreateSurvey msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/surveys'
+            render={() => (
+              <IndexSurveys msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            user={user}
+            path='/surveys/:id'
+            render={() => (
+              <Survey msgAlert={this.msgAlert} user={user} />
             )}
           />
         </main>
