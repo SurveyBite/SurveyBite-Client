@@ -2,13 +2,37 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import { createQuestion, updateQuestion } from '../../api/question'
+import { showSurvey } from '../../api/survey'
 
 class EditQuestions extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      amt: 0
+      title: '',
+      text: '',
+      sId: '',
+      amt: 0,
+      questions: []
     }
+  }
+
+  componentDidMount () {
+    const id = this.props.match.params.id
+    const { user } = this.props
+    showSurvey(user, id)
+      .then((response) => this.setState({ sId: response.data.survey._id, title: response.data.survey.title, text: response.data.survey.text, questions: response.data.survey.questions }))
+      .then(() => this.setState({ amt: this.state.questions.length }))
+      .then(() => {
+        for (let i = 1; i < this.state.amt + 1; i++) {
+          let value = this.state.questions[i - 1].title
+          let qId = this.state.questions[i - 1]._id
+          if (qId === undefined) qId = ''
+          if (value === undefined) value = ''
+          this.setState({ ['question' + i]: value, ['question' + i + 'key']: qId })
+        }
+      })
+      .catch(console.error)
   }
 
   handleChange = (event) =>
@@ -18,6 +42,21 @@ class EditQuestions extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
+    for (let i = 1; i < this.state.amt + 1; i++) {
+      const { user } = this.props
+      const title = this.state['question' + i]
+      const qId = this.state['question' + i + 'key']
+      console.log(this.state.sId)
+      if (qId === undefined) {
+        createQuestion(title, 'short answer', this.state.sId, user)
+          .then((res) => console.log(res))
+          .catch(() => console.log('fail'))
+      } else {
+        updateQuestion(title, 'short answer', this.state.sId, qId, user)
+          .then((res) => console.log(res))
+          .catch(() => console.error)
+      }
+    }
   }
 
   addQuestion = () => {
@@ -30,11 +69,13 @@ class EditQuestions extends Component {
     for (let i = 1; i < this.state.amt + 1; i++) {
       questionJSX.push(
         <>
-          <Form.Group controlId={'question' + i}>
+          <Form.Group controlId={this.state['question' + i + 'key']}>
             <Form.Label>Question</Form.Label>
             <Form.Control
               required
+              maxLength='300'
               type='question'
+              value={this.state['question' + i]}
               name={'question' + i}
               placeholder='Enter question'
               onChange={this.handleChange}
@@ -43,17 +84,15 @@ class EditQuestions extends Component {
           <Form.Group controlId={'answer' + i}>
             <Form.Label>Description</Form.Label>
             <Form.Control
+              disabled
               name='text'
               type='text'
-              value=''
               placeholder='Short Answer Question'
             />
           </Form.Group>
         </>
       )
     }
-    console.log(questionJSX)
-    console.log(this.state)
     return questionJSX
   }
 
@@ -61,6 +100,8 @@ class EditQuestions extends Component {
     const questionJSX = this.setJSX()
     return (
       <>
+        <h4>{this.state.title}</h4>
+        <p>Description: {this.state.text}</p>
         <Button variant='primary' onClick={this.addQuestion}>Add Question</Button>
         <Form onSubmit={this.onSubmit}>
           {questionJSX}
