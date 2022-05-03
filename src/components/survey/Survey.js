@@ -6,7 +6,7 @@ class Survey extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      survey: {}
+      survey: null
     }
   }
 
@@ -33,6 +33,9 @@ class Survey extends Component {
   }
 
   render () {
+    if (this.state.survey === null) {
+      return 'Loading...'
+    }
     if (this.state.survey.text === '') {
       return (
         <>

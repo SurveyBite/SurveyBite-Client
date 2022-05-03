@@ -41,6 +41,9 @@ class UpdateSurvey extends Component {
   }
 
   render () {
+    if (this.state.title === '') {
+      return 'Loading...'
+    }
     if (this.state.questions) {
       return <Redirect to={'/surveys/' + this.props.match.params.id + '/update/questions'} />
     }

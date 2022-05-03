@@ -98,6 +98,10 @@ class EditQuestions extends Component {
 
   render () {
     const questionJSX = this.setJSX()
+    const { title } = this.state
+    if (title === '') {
+      return 'Loading ...'
+    }
     return (
       <>
         <h4>{this.state.title}</h4>
