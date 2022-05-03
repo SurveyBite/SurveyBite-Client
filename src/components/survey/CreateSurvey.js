@@ -65,12 +65,12 @@ class CreateSurvey extends Component {
               />
             </Form.Group>
             <Form.Group controlId='text'>
-              <Form.Label>Text</Form.Label>
+              <Form.Label>Description</Form.Label>
               <Form.Control
                 name='text'
                 value={text}
                 type='text'
-                placeholder='text'
+                placeholder='Enter description'
                 onChange={this.handleChange}
               />
             </Form.Group>
