@@ -6,7 +6,7 @@ class IndexSurveys extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      surveys: []
+      surveys: null
     }
   }
 
@@ -34,6 +34,10 @@ class IndexSurveys extends Component {
   }
 
   render () {
+    const { surveys } = this.state
+    if (surveys === null) {
+      return 'Loading...'
+    }
     return (
       <div className='row'>
         <div className='col-sm-10 col-md-8 mx-auto mt-5'>
