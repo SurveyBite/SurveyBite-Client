@@ -1,1 +1,30 @@
 @import '~bootstrap/scss/bootstrap';
+
+body {
+    min-height: 100%;
+    background-color: #e5e5f7;
+    opacity: 0.8;
+    background: url("./images/cookie1.png") no-repeat center fixed;
+    font-family: 'Poppins', sans-serif;
+    background-color: #6bc4c9;
+}
+
+.navbar-brand {
+    margin-left: 2rem;
+    
+}
+
+.btn, .btn-primary {
+    margin-top: 5px;
+    background-color: tomato !important;
+    border: tomato;
+    box-shadow: 3px 5px rgb(235, 203, 203);
+}
+
+.bg-primary {
+    background-color: tomato !important;
+}
+
+form:hover {
+    color:gray
+}
