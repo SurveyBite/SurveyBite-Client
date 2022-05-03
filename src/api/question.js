@@ -36,3 +36,18 @@ export const updateQuestion = (title, option, surveyId, qId, user) => {
     }
   })
 }
+
+export const deleteQuestion = (sId, qId, user) => {
+  return axios({
+    method: 'DELETE',
+    url: apiUrl + '/questions/' + qId,
+    headers: {
+      Authorization: `Bearer ${user.token}`
+    },
+    data: {
+      question: {
+        surveyId: sId
+      }
+    }
+  })
+}

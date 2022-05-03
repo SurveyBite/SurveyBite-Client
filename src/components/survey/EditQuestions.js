@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
-import { createQuestion, updateQuestion } from '../../api/question'
+import { createQuestion, deleteQuestion, updateQuestion } from '../../api/question'
 import { showSurvey } from '../../api/survey'
 
 class EditQuestions extends Component {
@@ -13,7 +13,8 @@ class EditQuestions extends Component {
       text: '',
       sId: '',
       amt: 0,
-      questions: []
+      questions: [],
+      deleted: []
     }
   }
 
@@ -42,21 +43,40 @@ class EditQuestions extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
+    console.log('on Submit running??')
     for (let i = 1; i < this.state.amt + 1; i++) {
       const { user } = this.props
       const title = this.state['question' + i]
       const qId = this.state['question' + i + 'key']
-      console.log(this.state.sId)
+      // console.log(this.state.sId)
       if (qId === undefined) {
         createQuestion(title, 'short answer', this.state.sId, user)
           .then((res) => console.log(res))
+          .then(() => this.setJSX())
           .catch(() => console.log('fail'))
       } else {
         updateQuestion(title, 'short answer', this.state.sId, qId, user)
           .then((res) => console.log(res))
+          .then(() => this.setJSX())
           .catch(() => console.error)
       }
     }
+  }
+
+  deleteDynamic = (event) => {
+    console.log(event.target)
+    const num = event.target.getAttribute('data-num')
+    const qId = event.target.getAttribute('data-id')
+    const { sId } = this.state
+    const { user } = this.props
+    deleteQuestion(sId, qId, user)
+      .then((res) => {
+        this.state.deleted.push(num)
+        console.log(this.state.deleted)
+        // this.setState({ amt: this.state.amt - 1 })
+        this.setJSX()
+      })
+      .catch(() => console.error)
   }
 
   addQuestion = () => {
@@ -66,7 +86,18 @@ class EditQuestions extends Component {
 
   setJSX = () => {
     const questionJSX = []
+    const { deleted } = this.state
+    console.log('setJSX running')
     for (let i = 1; i < this.state.amt + 1; i++) {
+      // console.log(deleted.includes('1'))
+      // console.log(i.toString())
+      // console.log(deleted)
+      if (deleted.includes(i.toString())) {
+        console.log('delted filter running')
+        continue
+        // why is continue not working???
+      }
+      console.log('running')
       questionJSX.push(
         <>
           <Form.Group controlId={this.state['question' + i + 'key']}>
@@ -90,6 +121,7 @@ class EditQuestions extends Component {
               placeholder='Short Answer Question'
             />
           </Form.Group>
+          <button type='button' onClick={this.deleteDynamic} data-num={i} data-id={this.state['question' + i + 'key']}>Delete</button>
         </>
       )
     }
