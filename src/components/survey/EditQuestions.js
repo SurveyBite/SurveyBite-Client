@@ -18,10 +18,6 @@ class EditQuestions extends Component {
   }
 
   componentDidMount () {
-    this.onShowSurvey()
-  }
-
-  onShowSurvey = () => {
     const id = this.props.match.params.id
     const { user } = this.props
     showSurvey(user, id)
@@ -38,6 +34,41 @@ class EditQuestions extends Component {
       })
       .catch(console.error)
   }
+
+  onShowSurvey = () => {
+    const id = this.props.match.params.id
+    const { user } = this.props
+    showSurvey(user, id)
+      .then((response) => this.setState({ questions: response.data.survey.questions }))
+      .then(() => {
+        for (let i = 1; i < this.state.questions.length + 1; i++) {
+          let value = this.state.questions[i - 1].title
+          let qId = this.state.questions[i - 1]._id
+          if (qId === undefined) qId = ''
+          if (value === undefined) value = ''
+          this.setState({ ['question' + i]: value, ['question' + i + 'key']: qId })
+        }
+      })
+      .catch(console.error)
+  }
+
+  // onShowSurvey = () => {
+  //   const id = this.props.match.params.id
+  //   const { user } = this.props
+  //   showSurvey(user, id)
+  //     .then((response) => this.setState({ sId: response.data.survey._id, title: response.data.survey.title, text: response.data.survey.text, questions: response.data.survey.questions }))
+  //     .then(() => this.setState({ amt: this.state.questions.length }))
+  //     .then(() => {
+  //       for (let i = 1; i < this.state.amt + 1; i++) {
+  //         let value = this.state.questions[i - 1].title
+  //         let qId = this.state.questions[i - 1]._id
+  //         if (qId === undefined) qId = ''
+  //         if (value === undefined) value = ''
+  //         this.setState({ ['question' + i]: value, ['question' + i + 'key']: qId })
+  //       }
+  //     })
+  //     .catch(console.error)
+  // }
 
   handleChange = (event) =>
     this.setState({
@@ -69,12 +100,36 @@ class EditQuestions extends Component {
   }
 
   deleteDynamic = (event) => {
-    // console.log(event.target)
+    const num = event.target.getAttribute('data-num')
     const qId = event.target.getAttribute('data-id')
-    const { sId } = this.state
+    const { sId, amt } = this.state
     const { user } = this.props
+    if (qId === null || qId === '') {
+      for (let i = num; i < amt; i++) {
+        const r = parseInt(i) + 1
+        if (this.state['question' + r] === undefined) {
+          this.setState({ ['question' + i]: '' })
+        }
+        this.setState({ ['question' + i]: this.state['question' + r] })
+        console.log(r + ' ' + this.state['question' + r])
+      }
+      this.setState({ amt: this.state.amt - 1, ['question' + amt]: null })
+      this.setJSX()
+      return
+    }
     deleteQuestion(sId, qId, user)
       .then(() => this.onShowSurvey())
+      .then(() => {
+        for (let i = num; i < amt; i++) {
+          const r = parseInt(i) + 1
+          if (this.state['question' + r] === undefined) {
+            this.setState({ ['question' + i]: '' })
+          }
+          this.setState({ ['question' + i]: this.state['question' + r], ['question' + i + 'key']: this.state['question' + r + 'key'] })
+          console.log(r + ' ' + this.state['question' + r + 'key'])
+        }
+        this.setState({ amt: this.state.amt - 1, ['question' + amt]: undefined, ['question' + amt + 'key']: undefined })
+      })
       .then(() => this.setJSX())
       .catch(() => console.error)
   }
@@ -110,7 +165,7 @@ class EditQuestions extends Component {
               placeholder='Short Answer Question'
             />
           </Form.Group>
-          <button type='button' onClick={this.deleteDynamic} data-id={this.state['question' + i + 'key']}>Delete</button>
+          <button type='button' onClick={this.deleteDynamic} data-num={i} data-id={this.state['question' + i + 'key']}>Delete</button>
         </>
       )
     }
