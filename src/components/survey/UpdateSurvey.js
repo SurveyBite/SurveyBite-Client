@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { updateSurvey, showSurvey } from '../../api/survey'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
@@ -10,7 +10,8 @@ class UpdateSurvey extends Component {
 
     this.state = {
       title: '',
-      text: ''
+      text: '',
+      questions: false
     }
   }
 
@@ -35,7 +36,17 @@ class UpdateSurvey extends Component {
       .then(() => history.push('/surveys/' + this.props.match.params.id))
   }
 
+  test = () => {
+    this.setState({ questions: true })
+  }
+
   render () {
+    if (this.state.title === '') {
+      return 'Loading...'
+    }
+    if (this.state.questions) {
+      return <Redirect to={'/surveys/' + this.props.match.params.id + '/update/questions'} />
+    }
     return (
       <>
         <div className='row'>
@@ -67,6 +78,7 @@ class UpdateSurvey extends Component {
             </Form>
           </div>
         </div>
+        <button onClick={this.test}>Questions</button>
       </>
     )
   }
