@@ -3,7 +3,7 @@ $theme-colors: ("primary":#0dcaf0,
 
 @import '~bootstrap/scss/bootstrap';
 
-@media screen and (min-width: 800px) {
+@media screen and (max-width: 800px) {
     .container {
       margin: 1em 2em;
     }
@@ -30,26 +30,10 @@ body {
     box-shadow: 3px 5px rgb(235, 203, 203);
 }
 
-.hp-banner {
-    display: flex;
-}
+// .hp-banner {
+//     display: ;
+// }
 
-.form {
-    display: flex;
-}
-
-.about {
-    display: flex;
-}
-
-.write {
-    display: flex;
-}
-
-.research {
-    display: flex;
-}
-
-.contact  {
-    display: flex;
-}
+// #fun, .about, .write, .research, .contact {
+//     display: flex;
+// }
