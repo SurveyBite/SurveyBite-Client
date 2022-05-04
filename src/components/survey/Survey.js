@@ -16,6 +16,10 @@ class Survey extends Component {
     showSurvey(user, id)
 
       .then((response) => this.setState({ survey: response.data.survey }))
+      .then(() => {
+        console.log(this.state.survey.owner)
+        console.log(user._id)
+      })
       .catch(console.error)
   }
 
@@ -33,35 +37,48 @@ class Survey extends Component {
   }
 
   render () {
-    if (this.state.survey === null) {
+    const { survey } = this.state
+    const { user } = this.props
+    if (survey === null) {
       return 'Loading...'
     }
     let questionJSX
-    if (this.state.survey.text === '') {
+    if (survey.questions.length === 0) {
       questionJSX = 'Need some questions'
     } else {
-      questionJSX = this.state.survey.questions.map(question => (
+      questionJSX = survey.questions.map(question => (
         <li key={question._id}>{question.title}</li>
       ))
     }
-    // return (
-    //   <>
-    //     <h4>Survey</h4>
-    //     <h5>{this.state.survey.title}</h5>
-    //     <button onClick={this.deleteClick}>Delete Survey</button>
-    //     <button onClick={this.updateClick}>Update Survey</button>
-    //   </>
-    // )
-    // }
+    let buttonJSX
+    if (survey.owner === user._id) {
+      buttonJSX =
+      <>
+        <button onClick={this.deleteClick}>Delete Survey</button>
+        <button onClick={this.updateClick}>Update Survey</button>
+      </>
+    } else {
+      buttonJSX = <button>Take Survey</button>
+    }
+    if (survey.text === '') {
+      return (
+        <>
+          <h4>Survey</h4>
+          <h5>{this.state.survey.title}</h5>
+          <h5>All the questions</h5>
+          <ul>{questionJSX}</ul>
+          {buttonJSX}
+        </>
+      )
+    }
     return (
       <>
         <h4>Survey</h4>
         <h5>{this.state.survey.title}</h5>
         <p>Description: {this.state.survey.text}</p>
-        <h3>All the questions</h3>
+        <h5>All the questions</h5>
         <ul>{questionJSX}</ul>
-        <button onClick={this.deleteClick}>Delete Survey</button>
-        <button onClick={this.updateClick}>Update Survey</button>
+        {buttonJSX}
       </>
     )
   }

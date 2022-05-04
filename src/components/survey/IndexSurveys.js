@@ -6,16 +6,17 @@ class IndexSurveys extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      surveys: null
+      surveys: null,
+      show: false,
+      owned: false
     }
   }
 
-  componentDidMount () {
+  viewAllSurveys = () => {
     const { msgAlert, user } = this.props
-
     indexSurveys(user)
-      .then((res) => res.data.surveys.filter((survey) => survey.owner === this.props.user._id))
-      .then((res) => this.setState({ surveys: res }))
+      .then((res) => res.data.surveys.filter((survey) => survey.owner !== this.props.user._id))
+      .then((res) => this.setState({ surveys: res, show: true, owned: false }))
       .then(() =>
         msgAlert({
           heading: 'Index Survey Success',
@@ -23,7 +24,6 @@ class IndexSurveys extends Component {
           variant: 'success'
         })
       )
-      // .then(() => history.push('/'))
       .catch((error) => {
         msgAlert({
           heading: 'Error',
@@ -33,21 +33,63 @@ class IndexSurveys extends Component {
       })
   }
 
+  viewYourSurveys = () => {
+    const { msgAlert, user } = this.props
+    indexSurveys(user)
+      .then((res) => res.data.surveys.filter((survey) => survey.owner === this.props.user._id))
+      .then((res) => this.setState({ surveys: res, show: true, owned: true }))
+      .then(() =>
+        msgAlert({
+          heading: 'Index Survey Success',
+          message: 'success',
+          variant: 'success'
+        })
+      )
+      .catch((error) => {
+        msgAlert({
+          heading: 'Error',
+          message: 'Error:' + error.message,
+          variant: 'danger'
+        })
+      })
+  }
+
+  goBack = () => {
+    this.setState({ show: false })
+  }
+
   render () {
-    const { surveys } = this.state
-    if (surveys === null) {
-      return 'Loading...'
+    const { surveys, show, owned } = this.state
+    let titleJSX
+    if (owned) {
+      titleJSX = <h3>Your Surveys</h3>
+    } else {
+      titleJSX = <h3>All Surveys</h3>
     }
+    if (show) {
+      if (surveys === null) {
+        return 'Loading...'
+      } else {
+        return (
+          <div className='row'>
+            <div className='col-sm-10 col-md-8 mx-auto mt-5'>
+              {titleJSX}
+              {surveys.map(survey => {
+                // add filter to show only surveys by owner
+                return <li id={survey._id} key={survey._id}><Link to={'/surveys/' + survey._id}>{survey.title}</Link></li>
+              })}
+              <button onClick={this.goBack}>Back</button>
+            </div>
+          </div>
+        )
+      }
+    }
+
     return (
-      <div className='row'>
-        <div className='col-sm-10 col-md-8 mx-auto mt-5'>
-          <h3>Surveys</h3>
-          {this.state.surveys.map(survey => {
-            // add filter to show only surveys by owner
-            return <li id={survey._id} key={survey._id}><Link to={'/surveys/' + survey._id}>{survey.title}</Link></li>
-          })}
-        </div>
-      </div>
+      <>
+        <button onClick={this.viewAllSurveys}>View All Surveys</button> <br/>
+        <button onClick={this.viewYourSurveys}>View Your Surveys</button>
+      </>
     )
   }
 }
