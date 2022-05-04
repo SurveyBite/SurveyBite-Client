@@ -1,14 +1,20 @@
-$theme-colors: ("primary": tomato,
-    "danger": teal);
+$theme-colors: ("primary":#0dcaf0,
+    "danger": red);
 
 @import '~bootstrap/scss/bootstrap';
+
+@media screen and (min-width: 800px) {
+    .container {
+      margin: 1em 2em;
+    }
+  }
 
 body {
     min-height: 100%;
     opacity: .8;
-    background: url("./images/bunny.jpg") no-repeat center fixed;
+    background: url("./images/cookiebackground.jpg") no-repeat center fixed;
     background-size: cover;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Indie Flower', cursive;
     background-color: #6bc4c9;
 }
 
@@ -24,6 +30,26 @@ body {
     box-shadow: 3px 5px rgb(235, 203, 203);
 }
 
-// .bg-primary {
-//     background-color: tomato;
-// }
+.hp-banner {
+    display: flex;
+}
+
+.form {
+    display: flex;
+}
+
+.about {
+    display: flex;
+}
+
+.write {
+    display: flex;
+}
+
+.research {
+    display: flex;
+}
+
+.contact  {
+    display: flex;
+}
