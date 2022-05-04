@@ -79,7 +79,7 @@ class EditQuestions extends Component {
     event.preventDefault()
     // console.log('on Submit running??')
     for (let i = 1; i < this.state.amt + 1; i++) {
-      const { user } = this.props
+      const { user, history } = this.props
       const title = this.state['question' + i]
       const qId = this.state['question' + i + 'key']
       // console.log(this.state.sId)
@@ -88,12 +88,14 @@ class EditQuestions extends Component {
           .then((res) => console.log(res))
           .then(() => this.onShowSurvey())
           .then(() => this.setJSX())
+          .then(() => history.push('/surveys/' + this.state.sId))
           .catch(() => console.log('fail'))
       } else {
         updateQuestion(title, 'short answer', this.state.sId, qId, user)
           .then((res) => console.log(res))
           .then(() => this.onShowSurvey())
           .then(() => this.setJSX())
+          .then(() => history.push('/surveys/' + this.state.sId))
           .catch(() => console.error)
       }
     }

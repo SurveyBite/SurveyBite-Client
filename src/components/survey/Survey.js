@@ -36,21 +36,30 @@ class Survey extends Component {
     if (this.state.survey === null) {
       return 'Loading...'
     }
+    let questionJSX
     if (this.state.survey.text === '') {
-      return (
-        <>
-          <h4>Survey</h4>
-          <h5>{this.state.survey.title}</h5>
-          <button onClick={this.deleteClick}>Delete Survey</button>
-          <button onClick={this.updateClick}>Update Survey</button>
-        </>
-      )
+      questionJSX = 'Need some questions'
+    } else {
+      questionJSX = this.state.survey.questions.map(question => (
+        <li key={question._id}>{question.title}</li>
+      ))
     }
+    // return (
+    //   <>
+    //     <h4>Survey</h4>
+    //     <h5>{this.state.survey.title}</h5>
+    //     <button onClick={this.deleteClick}>Delete Survey</button>
+    //     <button onClick={this.updateClick}>Update Survey</button>
+    //   </>
+    // )
+    // }
     return (
       <>
         <h4>Survey</h4>
         <h5>{this.state.survey.title}</h5>
         <p>Description: {this.state.survey.text}</p>
+        <h3>All the questions</h3>
+        <ul>{questionJSX}</ul>
         <button onClick={this.deleteClick}>Delete Survey</button>
         <button onClick={this.updateClick}>Update Survey</button>
       </>
