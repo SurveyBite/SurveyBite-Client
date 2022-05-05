@@ -1,5 +1,17 @@
 import React from "react"
-import useLinkTo from "react"
+import { useLinkTo } from '@react-navigation/native';
+
+// ...
+
+function Home() {
+  const linkTo = useLinkTo();
+
+  return (
+    <Button onPress={() => linkTo('/homepage/homepage.js')}>
+      Home Page
+    </Button>
+  );
+}
 
 // id = '#root'
 // class = '.home-page', '.form', '.about', '.write', '.research', '.contact'
