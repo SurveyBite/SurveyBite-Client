@@ -17,8 +17,8 @@ class EditQuestions extends Component {
   }
 
   componentDidMount () {
-    // const id = this.props.match.params.id
-    const id = '62701ac832095a25707f3156'
+    const id = this.props.match.params.id
+    // const id = '62701ac832095a25707f3156'
     const { user } = this.props
     showSurvey(user, id)
       .then((response) => this.setState({ sId: response.data.survey._id, title: response.data.survey.title, text: response.data.survey.text, questions: response.data.survey.questions }))
