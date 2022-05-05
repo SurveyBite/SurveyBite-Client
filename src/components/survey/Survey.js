@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Redirect } from 'react-router-dom'
 import { showSurvey, deleteSurvey } from '../../api/survey'
 
 class Survey extends Component {
   constructor (props) {
     super(props)
     this.state = {
-      survey: null
+      survey: null,
+      takeSurvey: false
     }
   }
 
@@ -36,9 +37,14 @@ class Survey extends Component {
     history.push('/surveys/' + this.props.match.params.id + '/update')
   }
 
+  takeSurvey = () => {
+    this.setState({ takeSurvey: true })
+  }
+
   render () {
-    const { survey } = this.state
+    const { survey, takeSurvey } = this.state
     const { user } = this.props
+    console.log(takeSurvey)
     if (survey === null) {
       return 'Loading...'
     }
@@ -58,7 +64,10 @@ class Survey extends Component {
         <button onClick={this.updateClick}>Update Survey</button>
       </>
     } else {
-      buttonJSX = <button>Take Survey</button>
+      buttonJSX = <button onClick={this.takeSurvey}>Take Survey</button>
+    }
+    if (takeSurvey) {
+      <Redirect to={'/surveys/' + survey._id + '/take-survey'} />
     }
     if (survey.text === '') {
       return (

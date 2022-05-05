@@ -29,7 +29,7 @@ class EditQuestions extends Component {
           let qId = this.state.questions[i - 1]._id
           if (qId === undefined) qId = ''
           if (value === undefined) value = ''
-          this.setState({ ['question' + i]: value, ['question' + i + 'key']: qId })
+          this.setState({ ['question' + i]: value, ['question' + i + 'key']: qId, ['answer' + i]: '' })
         }
       })
       .catch(console.error)
@@ -50,13 +50,13 @@ class EditQuestions extends Component {
       questionJSX.push(
         <>
           <Form.Group controlId={this.state['question' + i + 'key']}>
-            <Form.Label>Question</Form.Label>
+            <Form.Label>{this.state['question' + i]}</Form.Label>
             <Form.Control
               required
               maxLength='300'
               type='question'
-              value={this.state['question' + i]}
-              name={'question' + i}
+              value={this.state['answer' + i]}
+              name={'answer' + i}
               placeholder='Short Answer'
               onChange={this.handleChange}
             />

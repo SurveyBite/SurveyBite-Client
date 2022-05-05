@@ -135,7 +135,7 @@ class App extends Component {
           <AuthenticatedRoute
             exact
             user={user}
-            path='/test'
+            path='/surveys/:id/take-survey'
             render={() => (
               <TakeSurvey msgAlert={this.msgAlert} user={user} />
             )}
