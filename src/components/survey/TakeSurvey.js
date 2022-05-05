@@ -45,6 +45,11 @@ class TakeSurvey extends Component {
     console.log('submit response')
   }
 
+  allSurveys = () => {
+    const { history } = this.props
+    history.push('/surveys/')
+  }
+
   setJSX = () => {
     const questionJSX = []
     for (let i = 1; i < this.state.amt + 1; i++) {
@@ -70,9 +75,17 @@ class TakeSurvey extends Component {
 
   render () {
     const questionJSX = this.setJSX()
-    const { title } = this.state
+    const { title, questions } = this.state
     if (title === '') {
       return 'Loading ...'
+    }
+    if (questions.length === 0) {
+      return (
+        <>
+          <p>This survey has no questions. Please return to all surveys</p>
+          <button onClick={this.allSurveys}>Surveys</button>
+        </>
+      )
     }
     return (
       <>
