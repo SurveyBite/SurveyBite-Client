@@ -67,7 +67,12 @@ class Responses extends Component {
       return 'loading...'
     }
     if (this.state['response' + 1] === undefined) {
-      return 'No responses'
+      return (
+        <>
+          <p>No responses</p>
+          <button onClick={this.goBack}>Back</button>
+        </>
+      )
     }
     const responsesJSX = this.setJSX()
     return (
