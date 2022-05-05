@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { showSurvey } from '../../api/survey'
+import { createResponse } from '../../api/response'
 
 class TakeSurvey extends Component {
   constructor (props) {
@@ -12,7 +13,10 @@ class TakeSurvey extends Component {
       text: '',
       sId: '',
       amt: 0,
-      questions: []
+      questions: [],
+      responses: [],
+      taken: false,
+      completed: false
     }
   }
 
@@ -21,9 +25,16 @@ class TakeSurvey extends Component {
     // const id = '62701ac832095a25707f3156'
     const { user } = this.props
     showSurvey(user, id)
-      .then((response) => this.setState({ sId: response.data.survey._id, title: response.data.survey.title, text: response.data.survey.text, questions: response.data.survey.questions }))
+      .then((res) => this.setState({ sId: res.data.survey._id, title: res.data.survey.title, text: res.data.survey.text, questions: res.data.survey.questions, responses: res.data.survey.responses }))
       .then(() => this.setState({ amt: this.state.questions.length }))
       .then(() => {
+        const { responses } = this.state
+        for (let i = 0; i < responses.length; i++) {
+          if (responses[i].owner === user._id) {
+            this.setState({ taken: true })
+            return
+          }
+        }
         for (let i = 1; i < this.state.amt + 1; i++) {
           let value = this.state.questions[i - 1].title
           let qId = this.state.questions[i - 1]._id
@@ -42,7 +53,14 @@ class TakeSurvey extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
-    console.log('submit response')
+    for (let i = 1; i < this.state.amt + 1; i++) {
+      const { user } = this.props
+      const content = this.state['answer' + i]
+      createResponse(content, this.state.sId, user)
+        .then((res) => console.log(res))
+        .then(() => this.setState({ completed: true }))
+        .catch(() => console.log('fail'))
+    }
   }
 
   allSurveys = () => {
@@ -75,7 +93,7 @@ class TakeSurvey extends Component {
 
   render () {
     const questionJSX = this.setJSX()
-    const { title, questions } = this.state
+    const { title, questions, completed, taken } = this.state
     if (title === '') {
       return 'Loading ...'
     }
@@ -83,7 +101,27 @@ class TakeSurvey extends Component {
       return (
         <>
           <p>This survey has no questions. Please return to all surveys</p>
-          <button onClick={this.allSurveys}>Surveys</button>
+          <button onClick={this.allSurveys}>Return to Surveys</button>
+        </>
+      )
+    }
+    if (taken) {
+      return (
+        <>
+          <p>
+            It seems you&apos;ve already taken this survey.
+            <br/>
+            Please return to all surveys.
+          </p>
+          <button onClick={this.allSurveys}>Return to Surveys</button>
+        </>
+      )
+    }
+    if (completed) {
+      return (
+        <>
+          <p>Thank you for taking this survey!</p>
+          <button onClick={this.allSurveys}>Return to Surveys</button>
         </>
       )
     }

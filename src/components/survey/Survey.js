@@ -44,7 +44,7 @@ class Survey extends Component {
   render () {
     const { survey, takeSurvey } = this.state
     const { user } = this.props
-    console.log(takeSurvey)
+    console.log(survey)
     if (survey === null) {
       return 'Loading...'
     }
@@ -62,6 +62,7 @@ class Survey extends Component {
       <>
         <button onClick={this.deleteClick}>Delete Survey</button>
         <button onClick={this.updateClick}>Update Survey</button>
+        <button>See Responses</button>
       </>
     } else {
       buttonJSX = <button onClick={this.takeSurvey}>Take Survey</button>
