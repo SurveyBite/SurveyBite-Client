@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import { showSurvey } from '../../api/survey'
 
-class EditQuestions extends Component {
+class TakeSurvey extends Component {
   constructor (props) {
     super(props)
     this.state = {
@@ -42,6 +42,7 @@ class EditQuestions extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
+    console.log('submit response')
   }
 
   setJSX = () => {
@@ -86,4 +87,4 @@ class EditQuestions extends Component {
   }
 }
 
-export default withRouter(EditQuestions)
+export default withRouter(TakeSurvey)
