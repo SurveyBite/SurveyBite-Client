@@ -39,14 +39,16 @@ class Responses extends Component {
         const { responses } = this.state
         for (let i = 0; i < responses.length; i++) {
           const o = responses[i].owner
+          let t = 1;
           const r = []
           console.log(i)
           console.log(r.includes(o))
           console.log(r)
           console.log(o)
           if (!r.includes(o)) {
-            this.setState({ ['response' + i]: [] })
-            this.setState({ ['response' + i]: responses.filter(response => response.owner === o) })
+            this.setState({ ['response' + t]: [] })
+            this.setState({ ['response' + t]: responses.filter(response => response.owner === o) })
+            t++;
             r.push(o)
           }
         }
