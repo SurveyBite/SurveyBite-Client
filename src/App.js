@@ -10,6 +10,13 @@ import SignUp from './components/auth/SignUp'
 import SignIn from './components/auth/SignIn'
 import SignOut from './components/auth/SignOut'
 import ChangePassword from './components/auth/ChangePassword'
+import CreateSurvey from './components/survey/CreateSurvey'
+import IndexSurveys from './components/survey/IndexSurveys'
+import Survey from './components/survey/Survey'
+import UpdateSurvey from './components/survey/UpdateSurvey'
+import EditQuestions from './components/survey/EditQuestions'
+import TakeSurvey from './components/survey/TakeSurvey'
+import Responses from './components/survey/Responses'
 
 class App extends Component {
   constructor (props) {
@@ -84,6 +91,62 @@ class App extends Component {
             path='/change-password'
             render={() => (
               <ChangePassword msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/new-survey'
+            render={() => (
+              <CreateSurvey msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/surveys'
+            render={() => (
+              <IndexSurveys msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/surveys/:id'
+            render={() => (
+              <Survey msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/surveys/:id/update'
+            render={() => (
+              <UpdateSurvey msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/surveys/:id/update/questions'
+            render={() => (
+              <EditQuestions msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/surveys/:id/take-survey'
+            render={() => (
+              <TakeSurvey msgAlert={this.msgAlert} user={user} />
+            )}
+          />
+          <AuthenticatedRoute
+            exact
+            user={user}
+            path='/test'
+            render={() => (
+              <Responses msgAlert={this.msgAlert} user={user} />
             )}
           />
         </main>
