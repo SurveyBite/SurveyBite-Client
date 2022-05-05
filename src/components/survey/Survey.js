@@ -67,7 +67,7 @@ class Survey extends Component {
       buttonJSX = <button onClick={this.takeSurvey}>Take Survey</button>
     }
     if (takeSurvey) {
-      <Redirect to={'/surveys/' + survey._id + '/take-survey'} />
+      return <Redirect to={'/surveys/' + survey._id + '/take-survey'} />
     }
     if (survey.text === '') {
       return (
