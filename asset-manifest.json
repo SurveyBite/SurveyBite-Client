@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/SurveyBite-Client/static/css/main.4b1b28ec.chunk.css",
-    "main.js": "/SurveyBite-Client/static/js/main.5b74fdd3.chunk.js",
-    "main.js.map": "/SurveyBite-Client/static/js/main.5b74fdd3.chunk.js.map",
+    "main.js": "/SurveyBite-Client/static/js/main.6ee2896e.chunk.js",
+    "main.js.map": "/SurveyBite-Client/static/js/main.6ee2896e.chunk.js.map",
     "runtime-main.js": "/SurveyBite-Client/static/js/runtime-main.f7fd68dc.js",
     "runtime-main.js.map": "/SurveyBite-Client/static/js/runtime-main.f7fd68dc.js.map",
     "static/js/2.bdc0e136.chunk.js": "/SurveyBite-Client/static/js/2.bdc0e136.chunk.js",
@@ -16,6 +16,6 @@
     "static/js/runtime-main.f7fd68dc.js",
     "static/js/2.bdc0e136.chunk.js",
     "static/css/main.4b1b28ec.chunk.css",
-    "static/js/main.5b74fdd3.chunk.js"
+    "static/js/main.6ee2896e.chunk.js"
   ]
 }
