@@ -7,7 +7,8 @@ class Survey extends Component {
     super(props)
     this.state = {
       survey: null,
-      takeSurvey: false
+      takeSurvey: false,
+      seeResponses: false
     }
   }
 
@@ -41,8 +42,12 @@ class Survey extends Component {
     this.setState({ takeSurvey: true })
   }
 
+  seeResponses = () => {
+    this.setState({ seeResponses: true })
+  }
+
   render () {
-    const { survey, takeSurvey } = this.state
+    const { survey, takeSurvey, seeResponses } = this.state
     const { user } = this.props
     console.log(survey)
     if (survey === null) {
@@ -62,13 +67,16 @@ class Survey extends Component {
       <>
         <button onClick={this.deleteClick}>Delete Survey</button>
         <button onClick={this.updateClick}>Update Survey</button>
-        <button>See Responses</button>
+        <button onClick={this.seeResponses}>See Responses</button>
       </>
     } else {
       buttonJSX = <button onClick={this.takeSurvey}>Take Survey</button>
     }
     if (takeSurvey) {
       return <Redirect to={'/surveys/' + survey._id + '/take-survey'} />
+    }
+    if (seeResponses) {
+      return <Redirect to={'/surveys/' + survey._id + '/responses'} />
     }
     if (survey.text === '') {
       return (

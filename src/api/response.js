@@ -1,7 +1,7 @@
 import apiUrl from '../apiConfig'
 import axios from 'axios'
 
-export const createResponse = (content, sId, user) => {
+export const createResponse = (content, question, sId, user) => {
   return axios({
     method: 'POST',
     url: apiUrl + '/responses',
@@ -11,6 +11,7 @@ export const createResponse = (content, sId, user) => {
     data: {
       response: {
         content: content,
+        question: question,
         surveyId: sId,
         owner: user._id
       }

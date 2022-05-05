@@ -8,64 +8,72 @@ class Responses extends Component {
 
     this.state = {
       survey: null,
-      responses: []
+      responses: [],
+      tracker: 0
     }
   }
 
   componentDidMount = () => {
-    // const id = this.props.match.params.id
-    const id = '62701ac832095a25707f3156'
+    const id = this.props.match.params.id
+    // const id = '62701ac832095a25707f3156'
     // const id = '62701acc32095a25707f3158'
     const { user } = this.props
     showSurvey(user, id)
       .then((res) => this.setState({ survey: res.data.survey, responses: res.data.survey.responses }))
       .then(() => {
-        // console.log(this.state.survey.owner)
-        // console.log(user._id)
-        // const { responses } = this.state
-        // for (let t = 1; responses.length !== 0; t++) {
-        //   // console.log(responses[0])
-        //   const o = responses[0].owner
-        //     this.setState({ ['response' + t]: [] })
-        //     this.state['response' + t].push(responses[0])
-        //     responses.shift()
-        //   for (let i = 0; i < responses.length; i++) {
-        //     if (o === responses[i].owner) {
-        //       this.state['response' + t].push(responses[i])
-        //     }
-        //   }
-        // }
-
         const { responses } = this.state
+        const responseOwnerArray = []
+        let tracker = 1
         for (let i = 0; i < responses.length; i++) {
-          const o = responses[i].owner
-          let t = 1
-          const r = []
-          console.log(i)
-          console.log(r.includes(o))
-          console.log(r)
-          console.log(o)
-          if (!r.includes(o)) {
-            this.setState({ ['response' + t]: [] })
-            this.setState({ ['response' + t]: responses.filter(response => response.owner === o) })
-            t++
-            r.push(o)
+          const responseOwner = responses[i].owner
+          if (!responseOwnerArray.includes(responseOwner)) {
+            this.setState({ ['response' + tracker]: [] })
+            this.setState({ ['response' + tracker]: responses.filter(response => response.owner === responseOwner) })
+            tracker++
+            responseOwnerArray.push(responseOwner)
+            this.setState({ tracker: tracker })
           }
         }
       })
       .catch(console.error)
   }
 
-  /* while responses is not empty
-  for loop to get i
-    take first response owner and push to new arry state (response i)
-      iterate through everything to find matching and push into new array
-    repeat
-  */
+  setJSX = () => {
+    const responsesJSX = []
+    const { tracker } = this.state
+    for (let i = 1; i < tracker; i++) {
+      responsesJSX.push(
+        <>
+          <h4>Response {i}</h4>
+          <ul>
+            {this.state['response' + i].map(response => {
+              return <li key={response._id}>{response.question}: {response.content}</li>
+            })}
+          </ul>
+        </>
+      )
+    }
+    return responsesJSX
+  }
+
+  goBack = () => {
+    const { history } = this.props
+    history.push('/surveys/' + this.props.match.params.id)
+  }
+
   render () {
-    console.log(this.state)
+    const { survey } = this.state
+    if (survey === null) {
+      return 'loading...'
+    }
+    if (this.state['response' + 1] === undefined) {
+      return 'No responses'
+    }
+    const responsesJSX = this.setJSX()
     return (
       <>
+        {responsesJSX}
+        <button onClick={this.goBack}>Back</button>
       </>
     )
   }
