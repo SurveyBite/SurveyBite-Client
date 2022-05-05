@@ -53,10 +53,11 @@ class TakeSurvey extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
+    const { user } = this.props
     for (let i = 1; i < this.state.amt + 1; i++) {
-      const { user } = this.props
       const content = this.state['answer' + i]
-      createResponse(content, this.state.sId, user)
+      const question = this.state['question' + i]
+      createResponse(content, question, this.state.sId, user)
         .then((res) => console.log(res))
         .then(() => this.setState({ completed: true }))
         .catch(() => console.log('fail'))
@@ -92,6 +93,7 @@ class TakeSurvey extends Component {
   }
 
   render () {
+    console.log(this.state)
     const questionJSX = this.setJSX()
     const { title, questions, completed, taken } = this.state
     if (title === '') {

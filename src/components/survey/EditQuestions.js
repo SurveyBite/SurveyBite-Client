@@ -77,12 +77,10 @@ class EditQuestions extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
-    // console.log('on Submit running??')
     for (let i = 1; i < this.state.amt + 1; i++) {
       const { user, history } = this.props
       const title = this.state['question' + i]
       const qId = this.state['question' + i + 'key']
-      // console.log(this.state.sId)
       if (qId === undefined) {
         createQuestion(title, 'short answer', this.state.sId, user)
           .then((res) => console.log(res))
