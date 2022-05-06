@@ -58,9 +58,8 @@ class TakeSurvey extends Component {
       const content = this.state['answer' + i]
       const question = this.state['question' + i]
       createResponse(content, question, this.state.sId, user)
-        .then((res) => console.log(res))
         .then(() => this.setState({ completed: true }))
-        .catch(() => console.log('fail'))
+        .catch(() => console.error)
     }
   }
 
@@ -93,7 +92,6 @@ class TakeSurvey extends Component {
   }
 
   render () {
-    console.log(this.state)
     const questionJSX = this.setJSX()
     const { title, questions, completed, taken } = this.state
     if (title === '') {
@@ -103,7 +101,7 @@ class TakeSurvey extends Component {
       return (
         <>
           <p>This survey has no questions. Please return to all surveys</p>
-          <button onClick={this.allSurveys}>Return to Surveys</button>
+          <Button variant="primary" onClick={this.allSurveys}>Return to Surveys</Button>
         </>
       )
     }
@@ -115,7 +113,7 @@ class TakeSurvey extends Component {
             <br/>
             Please return to all surveys.
           </p>
-          <button onClick={this.allSurveys}>Return to Surveys</button>
+          <Button variant="primary" onClick={this.allSurveys}>Return to Surveys</Button>
         </>
       )
     }
@@ -123,7 +121,7 @@ class TakeSurvey extends Component {
       return (
         <>
           <p>Thank you for taking this survey!</p>
-          <button onClick={this.allSurveys}>Return to Surveys</button>
+          <Button variant="primary" onClick={this.allSurveys}>Return to Surveys</Button>
         </>
       )
     }

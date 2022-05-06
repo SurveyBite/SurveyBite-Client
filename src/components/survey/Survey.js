@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter, Redirect } from 'react-router-dom'
 import { showSurvey, deleteSurvey } from '../../api/survey'
+import Button from 'react-bootstrap/Button'
 
 class Survey extends Component {
   constructor (props) {
@@ -18,10 +19,6 @@ class Survey extends Component {
     showSurvey(user, id)
 
       .then((response) => this.setState({ survey: response.data.survey }))
-      .then(() => {
-        console.log(this.state.survey.owner)
-        console.log(user._id)
-      })
       .catch(console.error)
   }
 
@@ -49,7 +46,6 @@ class Survey extends Component {
   render () {
     const { survey, takeSurvey, seeResponses } = this.state
     const { user } = this.props
-    console.log(survey)
     if (survey === null) {
       return 'Loading...'
     }
@@ -65,12 +61,12 @@ class Survey extends Component {
     if (survey.owner === user._id) {
       buttonJSX =
       <>
-        <button onClick={this.deleteClick}>Delete Survey</button>
-        <button onClick={this.updateClick}>Update Survey</button>
-        <button onClick={this.seeResponses}>See Responses</button>
+        <Button variant="primary" onClick={this.deleteClick}>Delete Survey</Button>
+        <Button variant="primary" onClick={this.updateClick}>Update Survey</Button>
+        <Button variant="primary" onClick={this.seeResponses}>See Responses</Button>
       </>
     } else {
-      buttonJSX = <button onClick={this.takeSurvey}>Take Survey</button>
+      buttonJSX = <Button variant="primary" onClick={this.takeSurvey}>Take Survey</Button>
     }
     if (takeSurvey) {
       return <Redirect to={'/surveys/' + survey._id + '/take-survey'} />
@@ -93,7 +89,7 @@ class Survey extends Component {
       <>
         <h4>Survey</h4>
         <h5>{this.state.survey.title}</h5>
-        <p>Description: {this.state.survey.text}</p>
+        <p>About: {this.state.survey.text}</p>
         <h5>All the questions</h5>
         <ul>{questionJSX}</ul>
         {buttonJSX}

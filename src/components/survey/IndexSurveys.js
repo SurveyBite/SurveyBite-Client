@@ -79,7 +79,7 @@ class IndexSurveys extends Component {
                 // add filter to show only surveys by owner
                 return <li id={survey._id} key={survey._id}><Link to={'/surveys/' + survey._id}>{survey.title}</Link></li>
               })}
-              <button onClick={this.goBack}>Back</button>
+              <Button variant="primary" onClick={this.goBack}>Back</Button>
             </div>
           </div>
         )

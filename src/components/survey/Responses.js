@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { showSurvey } from '../../api/survey'
+import Button from 'react-bootstrap/Button'
 
 class Responses extends Component {
   constructor (props) {
@@ -70,7 +71,7 @@ class Responses extends Component {
       return (
         <>
           <p>No responses</p>
-          <button onClick={this.goBack}>Back</button>
+          <Button variant="primary" onClick={this.goBack}>Back</Button>
         </>
       )
     }
@@ -78,7 +79,7 @@ class Responses extends Component {
     return (
       <>
         {responsesJSX}
-        <button onClick={this.goBack}>Back</button>
+        <Button variant="primary" onClick={this.goBack}>Back</Button>
       </>
     )
   }
