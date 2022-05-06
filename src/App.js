@@ -16,6 +16,7 @@ import Survey from './components/survey/Survey'
 import UpdateSurvey from './components/survey/UpdateSurvey'
 import EditQuestions from './components/survey/EditQuestions'
 import TakeSurvey from './components/survey/TakeSurvey'
+import Homepage from './components/Homepage/Homepage.js'
 
 class App extends Component {
   constructor (props) {

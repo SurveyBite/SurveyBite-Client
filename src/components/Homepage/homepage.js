@@ -7,6 +7,7 @@ function Home() {
   const linkTo = useLinkTo();
 
   return (
+      // import some code
     <Button onPress={() => linkTo('/homepage/homepage.js')}>
       Home Page
     </Button>
