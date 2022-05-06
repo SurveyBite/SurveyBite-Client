@@ -1,10 +1,7 @@
 # Survey Bite
 
-
-[Survey Bite](https://surveybite.github.io/SurveyBite-Client/)
-[Repositories](https://github.com/orgs/SurveyBite/repositories)
-
-
+- [Survey Bite](https://surveybite.github.io/SurveyBite-Client/)
+- [Repositories](https://github.com/orgs/SurveyBite/repositories)
 
 ### Overview:
 Make a survey. Take a survey.
