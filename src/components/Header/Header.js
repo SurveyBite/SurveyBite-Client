@@ -9,7 +9,6 @@ const authenticatedOptions = (
     <NavLink to='/new-survey' className='nav-link'>Create Survey</NavLink>
     <NavLink to='/surveys' className='nav-link'>Surveys</NavLink>
     <NavLink to='/sign-out' className='nav-link'>Sign Out</NavLink>
-    <NavLink to='/test' className='nav-link'>Test</NavLink>
   </Fragment>
 )
 

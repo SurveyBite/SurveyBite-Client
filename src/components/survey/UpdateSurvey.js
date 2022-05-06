@@ -78,7 +78,7 @@ class UpdateSurvey extends Component {
             </Form>
           </div>
         </div>
-        <button onClick={this.test}>Questions</button>
+        <Button variant="primary" onClick={this.test}>Questions</Button>
       </>
     )
   }
