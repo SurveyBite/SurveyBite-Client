@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/SurveyBite-Client/static/css/main.8b0a0527.chunk.css",
+    "main.css": "/SurveyBite-Client/static/css/main.8163aa56.chunk.css",
     "main.js": "/SurveyBite-Client/static/js/main.f0e7ce7b.chunk.js",
     "main.js.map": "/SurveyBite-Client/static/js/main.f0e7ce7b.chunk.js.map",
     "runtime-main.js": "/SurveyBite-Client/static/js/runtime-main.f7fd68dc.js",
@@ -8,14 +8,14 @@
     "static/js/2.7e6f9a71.chunk.js": "/SurveyBite-Client/static/js/2.7e6f9a71.chunk.js",
     "static/js/2.7e6f9a71.chunk.js.map": "/SurveyBite-Client/static/js/2.7e6f9a71.chunk.js.map",
     "index.html": "/SurveyBite-Client/index.html",
-    "static/css/main.8b0a0527.chunk.css.map": "/SurveyBite-Client/static/css/main.8b0a0527.chunk.css.map",
+    "static/css/main.8163aa56.chunk.css.map": "/SurveyBite-Client/static/css/main.8163aa56.chunk.css.map",
     "static/js/2.7e6f9a71.chunk.js.LICENSE.txt": "/SurveyBite-Client/static/js/2.7e6f9a71.chunk.js.LICENSE.txt",
     "static/media/index.scss": "/SurveyBite-Client/static/media/pexels.7c4fa595.jpg"
   },
   "entrypoints": [
     "static/js/runtime-main.f7fd68dc.js",
     "static/js/2.7e6f9a71.chunk.js",
-    "static/css/main.8b0a0527.chunk.css",
+    "static/css/main.8163aa56.chunk.css",
     "static/js/main.f0e7ce7b.chunk.js"
   ]
 }
