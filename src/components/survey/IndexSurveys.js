@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter, Link } from 'react-router-dom'
 import { indexSurveys } from '../../api/survey'
+import Button from 'react-bootstrap/Button'
 
 class IndexSurveys extends Component {
   constructor (props) {
@@ -87,8 +88,8 @@ class IndexSurveys extends Component {
 
     return (
       <>
-        <button onClick={this.viewAllSurveys}>View All Surveys</button> <br/>
-        <button onClick={this.viewYourSurveys}>View Your Surveys</button>
+        <Button variant="primary" onClick={this.viewAllSurveys}>View All Surveys</Button> <br/>
+        <Button onClick={this.viewYourSurveys}>View Your Surveys</Button>
       </>
     )
   }

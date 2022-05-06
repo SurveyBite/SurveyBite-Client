@@ -1,12 +1,12 @@
 $theme-colors: ("primary": #6bc4c9,
-    "danger": rgb(170, 65, 20));
+    "danger": rgb(173, 71, 27));
 
 @import '~bootstrap/scss/bootstrap';
 
 body {
     min-height: 100%;
     opacity: .8;
-    background: url("./images/bunny.jpg") no-repeat center fixed;
+    background: url("./images/pexels.jpg") no-repeat center fixed;
     background-size: cover;
     font-family: 'Poppins', sans-serif;
     background-color: #6bc4c9;
@@ -18,7 +18,7 @@ body {
 }
 
 .btn, .btn-primary {
-    margin-top: 6px;
+    margin-top: 10px;
     // background-color: tomato !important;
     // border-color: tomato;
     box-shadow: 3px 5px rgb(235, 203, 203);
