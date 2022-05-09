@@ -88,3 +88,11 @@ Once you have an account you can: make a survey, take a survey, and see your sur
 | GET    | `/responses/:id`           | `responses#show`      |
 | PATCH  | `/responses/:id`           | `responses#update`    |
 | DELETE | `/responses/:id`            | `responses#destroy`   |
+
+
+### Team Members' Githubs:
+
+- [Alexsia Avila](https://github.com/avongalie)
+- [Hiep Duong](https://github.com/hieppie)
+- [Joshua Giang](https://github.com/jgiang15)
+- [Rebecca Foltin](https://github.com/rebeccafoltin)
