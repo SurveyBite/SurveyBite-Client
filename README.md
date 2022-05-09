@@ -34,3 +34,57 @@ Once you have an account you can: make a survey, take a survey, and see your sur
 - As a signed in user, I would like to delete my survey.
 - As a signed in user, I would like to see all surveys and its answers.
 - As a signed in user, I would like to take a survey.
+
+- As a registered user, I would like to sign in with email and password.
+
+
+### Technologies Used:
+
+## Front-End:
+- Javascript
+- React
+- HTML/CSS
+- Bootstrap
+- Axios
+
+## Back-end:
+- Javascript
+- Express.js
+- MongoDB
+- Mongoose
+
+### Planning & Problem solving strategies:
+- [Gantt Chart](https://docs.google.com/spreadsheets/d/1Po47l2tDUJSaDu5-DrfqIBLSBSBXFROUt6qTkc6Sm70/edit#gid=0)
+- [Trello](https://trello.com/b/Tt0mqjCX/surveybite)
+- Team meetings before, during, and after classes
+- Pair programming
+- Instructors' help
+
+### Future goals
+- We wanted the users to be able to take a survey multiple times if they want.
+- We wanted to have other type of survey questions than just short answer questions. Examples: multiple choice, rating, scale (1-10), true/false
+- We started on a home page but did not enough time to finish it. 
+- We wanted the users to be able to share their surveys on their social media. 
+- We wanted the users to be able to share their social media pages directly on our survey site. 
+
+### API End Points
+
+| Verb   | URI Pattern            | Controller#Action |
+|--------|------------------------|-------------------|
+| POST   | `/sign-up`             | `users#signup`    |
+| POST   | `/sign-in`             | `users#signin`    |
+| DELETE | `/sign-out`            | `users#signout`   |
+| PATCH  | `/change-password`     | `users#changepw`  |
+| GET    | `/surveys`               | `surveys#index`     |
+| POST   | `/surveys`               | `surveys#create`    |
+| GET    | `/surveys/:id`           | `surveys#show`      |
+| PATCH  | `/surveys/:id`           | `surveys#update`    |
+| DELETE | `/surveys/:id`            | `surveys#destroy`   |
+| POST   | `/questions`               | `questions#create`    |
+| PATCH  | `/questions/:id`           | `questions#update`    |
+| DELETE | `/questions/:id`            | `questions#destroy`   |
+| GET    | `/responses`               | `responses#index`     |
+| POST   | `/responses`               | `responses#create`    |
+| GET    | `/responses/:id`           | `responses#show`      |
+| PATCH  | `/responses/:id`           | `responses#update`    |
+| DELETE | `/responses/:id`            | `responses#destroy`   |
